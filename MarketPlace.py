@@ -8,13 +8,14 @@ class DataProduct:
         """
         self.product_id = product_id
         self.name = name
-        self.classification = classification 
+        self.classification = classification
 
-    def is_confidentiality(self):
+    def is_confidential(self):
         """Return True if the product is Confidential or Highly Confidential."""
-        if self.classification == "Highly Confidential" or self.classification == "Confidential":
-            return True
-        return False
+        return self.classification in (
+            "Confidential",
+            "Highly Confidential",
+        )
 
 
 class AccessSubscription:
@@ -55,7 +56,7 @@ class MarketPlace:
         """
         new_subscription = AccessSubscription(user_name, product.name, reason)
 
-        if not product.is_confidentiality():
+        if not product.is_confidential():
             new_subscription.approve()
 
         self.access_subscriptions.append(new_subscription)
